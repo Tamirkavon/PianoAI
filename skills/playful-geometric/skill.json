@@ -1,0 +1,15 @@
+{
+  "name": "playful-geometric",
+  "version": "1.0.0",
+  "description": "Memphis-inspired design system. Hard pop shadows, bouncy interactions, confetti color palette. The antidote to generic AI UIs.",
+  "category": "light",
+  "mood": ["playful", "optimistic", "tactile", "energetic"],
+  "stack": ["react", "tailwind", "framer-motion", "lucide-react"],
+  "dependencies": {
+    "framer-motion": "^10.0.0",
+    "lucide-react": "^0.263.0"
+  },
+  "devDependencies": {},
+  "components": 15,
+  "tags": ["light", "playful", "geometric", "memphis", "colorful", "bouncy", "pop-shadow"]
+}

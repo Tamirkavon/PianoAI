@@ -1,0 +1,146 @@
+/* ============================================================
+   PLAYFUL GEOMETRIC SKILL — globals.css
+   Import in your project root:
+   Next.js: app/layout.tsx or pages/_app.tsx
+   Vite/CRA: main.jsx
+   ============================================================ */
+
+/* ── FONT IMPORT ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500&display=swap');
+
+/* ── CSS VARIABLES ────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-bg:           #FFFDF5;  /* Warm cream — never pure white */
+  --color-muted:        #F1F5F9;
+  --color-card:         #FFFFFF;
+  --color-input:        #FFFFFF;
+
+  /* Text */
+  --color-fg:           #1E293B;  /* Also used for borders and shadows */
+  --color-muted-fg:     #64748B;
+
+  /* Confetti accents */
+  --color-accent:       #8B5CF6;  /* Violet — primary */
+  --color-accent-fg:    #FFFFFF;
+  --color-secondary:    #F472B6;  /* Hot pink */
+  --color-tertiary:     #FBBF24;  /* Amber/Yellow */
+  --color-quaternary:   #34D399;  /* Emerald/Mint */
+
+  /* Borders */
+  --color-border:        #E2E8F0;
+  --color-border-strong: #1E293B;
+  --color-ring:          #8B5CF6;
+}
+
+/* ── BASE RESET ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+/* ── SELECTION ────────────────────────────────────────────── */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+
+/* ── FOCUS ────────────────────────────────────────────────── */
+/* Replace default ring with the pop shadow focus style */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 3px;
+  box-shadow: 4px 4px 0px 0px var(--color-ring);
+}
+
+/* ── SCROLLBAR ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 4px;
+}
+
+/* ── LINKS ────────────────────────────────────────────────── */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover { text-decoration: underline; }
+
+/* ── DOT GRID BACKGROUND PATTERN ─────────────────────────── */
+/* Apply .bg-dots to any section for a dot grid texture */
+.bg-dots {
+  background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── DIAGONAL STRIPE PATTERN ─────────────────────────────── */
+/* Apply .bg-stripes to decorative shapes */
+.bg-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    rgba(30, 41, 59, 0.08) 4px,
+    rgba(30, 41, 59, 0.08) 8px
+  );
+}
+
+/* ── REDUCED MOTION ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── UTILITY CLASSES ──────────────────────────────────────── */
+
+/* Section wrapper — always use this for sections with decorative shapes */
+.section-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decoration layer — absolutely positioned shapes sit here */
+.decoration-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Content layer — sits above decorations */
+.content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Pop shadow hover — apply to any element */
+.hover-lift {
+  transition: transform 200ms cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 200ms cubic-bezier(0.34,1.56,0.64,1);
+}
+.hover-lift:hover {
+  transform: translate(-2px, -2px);
+}
+.hover-lift:active {
+  transform: translate(2px, 2px);
+}
