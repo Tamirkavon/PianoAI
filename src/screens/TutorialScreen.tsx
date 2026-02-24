@@ -184,7 +184,7 @@ export function TutorialScreen() {
   }, []);
 
   const handleContinue = () => {
-    localStorage.setItem('pianoai-tutorial-seen', '1');
+    try { localStorage.setItem('pianoai-tutorial-seen', '1'); } catch {}
     goTo('select');
   };
 
@@ -196,7 +196,7 @@ export function TutorialScreen() {
       </p>
 
       <div ref={containerRef} className="w-full max-w-lg rounded-2xl overflow-hidden border border-white/10 shadow-2xl" style={{ height: '45vh', minHeight: '220px' }}>
-        <canvas ref={canvasRef} className="block" />
+        <canvas ref={canvasRef} className="block" aria-label="Tutorial animation showing how to play" role="img" />
       </div>
 
       <div className="flex items-center gap-6 mt-5 mb-6">

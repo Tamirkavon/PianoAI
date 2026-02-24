@@ -141,7 +141,7 @@ export function FallingNotesCanvas({ song, noteStates, elapsedTime }: Props) {
 
   return (
     <div ref={containerRef} className="w-full h-full">
-      <canvas ref={canvasRef} className="block" />
+      <canvas ref={canvasRef} className="block" aria-label="Falling notes game area" role="img" />
     </div>
   );
 }

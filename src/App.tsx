@@ -12,7 +12,8 @@ function AppContent() {
 
   const handleStart = async () => {
     await initAudio();
-    const seen = localStorage.getItem('pianoai-tutorial-seen');
+    let seen = false;
+    try { seen = !!localStorage.getItem('pianoai-tutorial-seen'); } catch {}
     goTo(seen ? 'select' : 'tutorial');
   };
 

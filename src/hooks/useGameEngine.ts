@@ -93,9 +93,11 @@ export function useGameEngine(song: Song | null) {
       else if (bestDiff <= 0.3) hitType = 'good';
       else hitType = 'ok';
       noteStatesRef.current[bestIdx].status = hitType;
-      const pts = hitType === 'perfect' ? 100 : hitType === 'good' ? 75 : 50;
+      const basePts = hitType === 'perfect' ? 100 : hitType === 'good' ? 75 : 50;
       setScore(prev => {
         const newCombo = prev.combo + 1;
+        const multiplier = newCombo >= 20 ? 2 : newCombo >= 10 ? 1.5 : newCombo >= 5 ? 1.2 : 1;
+        const pts = Math.round(basePts * multiplier);
         return {
           ...prev,
           points: prev.points + pts,

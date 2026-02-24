@@ -1,0 +1,40 @@
+{
+  "name": "neo-brutalism",
+  "version": "1.0.0",
+  "description": "Digital punk rebellion against polished SaaS. Thick black borders. Hard ink shadows. Mechanical button press. Cream canvas. Space Grotesk Black. Loud, raw, confident.",
+  "category": "bold",
+  "mood": ["rebellious", "loud", "tactile", "energetic", "raw", "punk"],
+  "stack": ["react", "tailwind"],
+  "dependencies": {
+    "lucide-react": "^0.263.0"
+  },
+  "devDependencies": {},
+  "components": 12,
+  "author": "getdrip",
+  "preview": "https://getdrip.dev/skills/neo-brutalism",
+  "docs": "https://getdrip.dev/docs/neo-brutalism",
+  "tags": [
+    "brutalism", "neo-brutalism", "bold", "punk", "retro",
+    "black-borders", "hard-shadows", "uppercase", "space-grotesk",
+    "mechanical", "loud", "high-contrast", "sticker"
+  ],
+  "palette": {
+    "canvas":    "#FFFDF5",
+    "ink":       "#000000",
+    "accent":    "#FF6B6B",
+    "secondary": "#FFD93D",
+    "muted":     "#C4B5FD"
+  },
+  "signature_traits": [
+    "border-4 border-black on everything",
+    "hard zero-blur shadows offset bottom-right",
+    "button push mechanic (active:translate covers shadow)",
+    "card lift mechanic (hover:translate-up + shadow-grows)",
+    "Space Grotesk Black uppercase typography",
+    "cream canvas #FFFDF5",
+    "text-stroke hollow display headings",
+    "rotating sticker badges",
+    "color-blocked sections",
+    "textured backgrounds (halftone, grid, noise)"
+  ]
+}

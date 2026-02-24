@@ -1,0 +1,14 @@
+{
+  "name": "clay-premium",
+  "version": "1.0.0",
+  "description": "High-Fidelity Claymorphism — soft matte silicone surfaces, candy-store colors, 4-layer shadow stacks, and bouncy micro-interactions. Zero sharp corners. Buttons squish. Cards float.",
+  "category": "colorful",
+  "mood": ["playful", "tactile", "joyful", "premium", "soft"],
+  "stack": ["react", "tailwind"],
+  "dependencies": {
+    "lucide-react": "^0.263.0"
+  },
+  "devDependencies": {},
+  "components": 11,
+  "tags": ["clay", "claymorphism", "playful", "colorful", "soft", "rounded", "3d-shadows", "candy", "joyful", "physical"]
+}

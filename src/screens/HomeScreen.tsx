@@ -20,6 +20,7 @@ export function HomeScreen({ onStart }: Props) {
         </p>
         <button
           onClick={onStart}
+          aria-label="Start playing piano"
           className="px-12 py-4 bg-indigo-600 hover:bg-indigo-500 text-white text-xl font-semibold rounded-full transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/30 active:scale-95 font-display"
         >
           Start Playing

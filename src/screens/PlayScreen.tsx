@@ -16,14 +16,15 @@ export function PlayScreen() {
 
   useEffect(() => {
     engine.start();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [engine.start]);
 
   useEffect(() => {
     if (engine.phase === 'finished') {
       setLastScore(engine.score);
       setTimeout(() => goTo('results'), 1200);
     }
-  }, [engine.phase]);
+  }, [engine.phase, engine.score, setLastScore, goTo]);
 
   const handleNoteOn = useCallback((note: string) => {
     playNote(note);
@@ -39,7 +40,7 @@ export function PlayScreen() {
   return (
     <div className="h-screen flex flex-col bg-slate-950 overflow-hidden select-none">
       <div className="flex items-center justify-between px-4 py-2 bg-slate-900/80 backdrop-blur z-10 shrink-0">
-        <button onClick={() => goTo('select')} className="text-slate-400 hover:text-white">
+        <button onClick={() => goTo('select')} className="text-slate-400 hover:text-white" aria-label="Back to song list">
           <ArrowLeft className="w-5 h-5" />
         </button>
         <span className="text-sm text-slate-300 font-display truncate mx-4">{selectedSong.title}</span>

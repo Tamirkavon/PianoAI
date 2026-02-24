@@ -1,14 +1,25 @@
+import { useEffect, useMemo } from 'react';
 import { Star, RotateCcw, ArrowLeft } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import { getStarRating } from '../utils/noteHelpers';
 
 export function ResultsScreen() {
-  const { selectedSong, lastScore, goTo, replay } = useGame();
-  if (!selectedSong || !lastScore) return null;
+  const { selectedSong, lastScore, goTo, replay, persistBestScore } = useGame();
 
-  const total = lastScore.perfect + lastScore.good + lastScore.ok + lastScore.misses;
-  const accuracy = total > 0 ? Math.round(((lastScore.perfect + lastScore.good + lastScore.ok) / total) * 100) : 0;
-  const stars = getStarRating(accuracy);
+  const { accuracy, stars } = useMemo(() => {
+    if (!lastScore) return { accuracy: 0, stars: 0 };
+    const total = lastScore.perfect + lastScore.good + lastScore.ok + lastScore.misses;
+    const acc = total > 0 ? Math.round(((lastScore.perfect + lastScore.good + lastScore.ok) / total) * 100) : 0;
+    return { accuracy: acc, stars: getStarRating(acc) };
+  }, [lastScore]);
+
+  useEffect(() => {
+    if (selectedSong && lastScore) {
+      persistBestScore(selectedSong.id, accuracy, lastScore.points, stars);
+    }
+  }, [selectedSong, lastScore, accuracy, stars, persistBestScore]);
+
+  if (!selectedSong || !lastScore) return null;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 px-4">
@@ -55,12 +66,14 @@ export function ResultsScreen() {
         <div className="flex gap-3">
           <button
             onClick={replay}
+            aria-label="Play again"
             className="flex-1 flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <RotateCcw className="w-4 h-4" /> Play Again
           </button>
           <button
             onClick={() => goTo('select')}
+            aria-label="Back to song list"
             className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <ArrowLeft className="w-4 h-4" /> Songs

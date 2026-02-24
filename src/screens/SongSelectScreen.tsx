@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ArrowLeft, Play, HelpCircle } from 'lucide-react';
+import { ArrowLeft, Play, HelpCircle, Star } from 'lucide-react';
 import { SONGS } from '../data/songs';
 import { Song } from '../types';
 import { useGame } from '../context/GameContext';
+import { BestScore } from '../context/GameContext';
 
 const DIFFS = ['all', 'easy', 'medium', 'hard'] as const;
 const DIFF_COLORS: Record<string, string> = {
@@ -15,19 +16,19 @@ const DIFF_GRADIENTS: Record<string, string> = {
 };
 
 export function SongSelectScreen() {
-  const { selectSong, goTo } = useGame();
+  const { selectSong, goTo, bestScores } = useGame();
   const [filter, setFilter] = useState<string>('all');
   const filtered = filter === 'all' ? SONGS : SONGS.filter(s => s.difficulty === filter);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-4 py-6 overflow-y-auto">
+    <div className="h-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-4 py-6 overflow-y-auto">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <button onClick={() => goTo('home')} className="text-slate-400 hover:text-white transition">
+          <button onClick={() => goTo('home')} className="text-slate-400 hover:text-white transition" aria-label="Back to home">
             <ArrowLeft className="w-6 h-6" />
           </button>
           <h2 className="text-3xl font-bold text-white font-display flex-1">Choose a Song</h2>
-          <button onClick={() => goTo('tutorial')} className="text-slate-400 hover:text-indigo-400 transition" title="How to Play">
+          <button onClick={() => goTo('tutorial')} className="text-slate-400 hover:text-indigo-400 transition" title="How to Play" aria-label="How to play">
             <HelpCircle className="w-6 h-6" />
           </button>
         </div>
@@ -48,7 +49,7 @@ export function SongSelectScreen() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map(song => (
-            <SongCard key={song.id} song={song} onSelect={selectSong} />
+            <SongCard key={song.id} song={song} onSelect={selectSong} best={bestScores[song.id]} />
           ))}
         </div>
       </div>
@@ -56,13 +57,14 @@ export function SongSelectScreen() {
   );
 }
 
-function SongCard({ song, onSelect }: { song: Song; onSelect: (s: Song) => void }) {
+function SongCard({ song, onSelect, best }: { song: Song; onSelect: (s: Song) => void; best?: BestScore }) {
   const dur = Math.round(song.duration);
   const mins = Math.floor(dur / 60);
   const secs = dur % 60;
   return (
     <button
       onClick={() => onSelect(song)}
+      aria-label={`Play ${song.title} by ${song.artist}`}
       className={`relative overflow-hidden rounded-2xl p-5 text-left transition-all hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] bg-gradient-to-br ${DIFF_GRADIENTS[song.difficulty]} border border-white/5`}
     >
       <div className="flex justify-between items-start mb-3">
@@ -75,7 +77,18 @@ function SongCard({ song, onSelect }: { song: Song; onSelect: (s: Song) => void 
       <p className="text-sm text-slate-400">{song.artist}</p>
       <div className="flex items-center justify-between mt-3">
         <span className="text-xs text-slate-500">{song.notes.length} notes</span>
-        <Play className="w-4 h-4 text-slate-500" />
+        {best ? (
+          <div className="flex items-center gap-1">
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map(i => (
+                <Star key={i} className={`w-3 h-3 ${i <= best.stars ? 'text-yellow-400 fill-yellow-400' : 'text-slate-700'}`} />
+              ))}
+            </div>
+            <span className="text-xs text-slate-400 ml-1">{best.accuracy}%</span>
+          </div>
+        ) : (
+          <Play className="w-4 h-4 text-slate-500" />
+        )}
       </div>
     </button>
   );
