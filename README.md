@@ -6,7 +6,7 @@ A Simply Piano-inspired web app that teaches piano through falling notes, real-t
 
 ## Features
 
-- 15 songs across 3 difficulty levels (Easy, Medium, Hard)
+- 30 songs across 3 difficulty levels (Easy, Medium, Hard)
 - Falling notes visualization with color-coded timing feedback
 - Real-time accuracy scoring with combo streaks
 - Interactive piano keyboard (desktop keyboard + mobile touch)
@@ -52,6 +52,11 @@ Two octaves (C4-B5) spatially aligned — left keys on keyboard = left keys on p
 | Baby Shark | Pinkfong |
 | Let It Go | Frozen |
 | Super Mario Bros | Nintendo |
+| Ode to Joy | Beethoven |
+| Jingle Bells | Traditional |
+| Do-Re-Mi | Sound of Music |
+| You've Got a Friend in Me | Toy Story |
+| When You Wish Upon a Star | Pinocchio |
 
 ### Medium
 | Song | Artist |
@@ -61,6 +66,11 @@ Two octaves (C4-B5) spatially aligned — left keys on keyboard = left keys on p
 | He's a Pirate | Pirates of Caribbean |
 | Star Wars | John Williams |
 | Sweden | C418 (Minecraft) |
+| A Whole New World | Aladdin |
+| Beauty and the Beast | Disney |
+| We Don't Talk About Bruno | Encanto |
+| Dance of the Sugar Plum Fairy | Tchaikovsky |
+| Turkish March | Mozart |
 
 ### Hard
 | Song | Artist |
@@ -70,6 +80,11 @@ Two octaves (C4-B5) spatially aligned — left keys on keyboard = left keys on p
 | Believer | Imagine Dragons |
 | Stranger Things | Kyle Dixon |
 | Interstellar | Hans Zimmer |
+| Moonlight Sonata | Beethoven |
+| Gymnopédie No. 1 | Satie |
+| Defying Gravity | Wicked |
+| Into the Unknown | Frozen 2 |
+| Canon in D | Pachelbel |
 
 ## Scoring
 
@@ -86,7 +101,7 @@ Stars: 95%+ = 5 stars, 85%+ = 4, 70%+ = 3, 50%+ = 2, below = 1
 src/
 ├── types/index.ts           # TypeScript types
 ├── data/
-│   ├── songs.ts             # 15 songs as note sequences
+│   ├── songs.ts             # 30 songs as note sequences
 │   └── keymap.ts            # Keyboard-to-note mapping
 ├── hooks/
 │   ├── useAudioEngine.ts    # Tone.js synth
