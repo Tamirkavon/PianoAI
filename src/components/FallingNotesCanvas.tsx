@@ -59,14 +59,25 @@ export function FallingNotesCanvas({ song, noteStates, elapsedTime }: Props) {
 
       ctx.clearRect(0, 0, w, h);
 
+      // Background — deep void
       const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-      bgGrad.addColorStop(0, '#0f172a');
-      bgGrad.addColorStop(1, '#1e1b4b');
+      bgGrad.addColorStop(0, '#0a0a0f');
+      bgGrad.addColorStop(1, '#0f0f1a');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // Lane guides for white keys
-      ctx.strokeStyle = 'rgba(99, 102, 241, 0.06)';
+      // Grid lines
+      ctx.strokeStyle = 'rgba(0,240,255,0.02)';
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx < w; gx += 40) {
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke();
+      }
+      for (let gy = 0; gy < h; gy += 40) {
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
+      }
+
+      // Lane guides — neon cyan
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.03)';
       ctx.lineWidth = 1;
       for (let i = 0; i < 14; i++) {
         const laneX = (i + 0.5) * (w / 14);
@@ -76,17 +87,19 @@ export function FallingNotesCanvas({ song, noteStates, elapsedTime }: Props) {
         ctx.stroke();
       }
 
-      ctx.strokeStyle = 'rgba(99, 102, 241, 0.3)';
+      // Hit line — cyan
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(0, hitY);
       ctx.lineTo(w, hitY);
       ctx.stroke();
 
+      // Hit zone glow — cyan
       const lineGrad = ctx.createLinearGradient(0, hitY - 15, 0, hitY + 15);
-      lineGrad.addColorStop(0, 'rgba(99, 102, 241, 0)');
-      lineGrad.addColorStop(0.5, 'rgba(99, 102, 241, 0.12)');
-      lineGrad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+      lineGrad.addColorStop(0, 'rgba(0, 240, 255, 0)');
+      lineGrad.addColorStop(0.5, 'rgba(0, 240, 255, 0.1)');
+      lineGrad.addColorStop(1, 'rgba(0, 240, 255, 0)');
       ctx.fillStyle = lineGrad;
       ctx.fillRect(0, hitY - 15, w, 30);
 
@@ -106,18 +119,18 @@ export function FallingNotesCanvas({ song, noteStates, elapsedTime }: Props) {
         if (ns.status === 'upcoming') {
           ctx.fillStyle = color;
           ctx.shadowColor = color;
-          ctx.shadowBlur = 10;
+          ctx.shadowBlur = 15;
           roundRect(ctx, x - noteW / 2, y - noteH, noteW, noteH, 5);
           ctx.fill();
           ctx.shadowBlur = 0;
-          ctx.fillStyle = 'rgba(255,255,255,0.15)';
+          ctx.fillStyle = 'rgba(255,255,255,0.2)';
           roundRect(ctx, x - noteW / 2 + 2, y - noteH + 2, noteW - 4, Math.min(noteH / 3, 8), 3);
           ctx.fill();
         } else if (ns.status === 'perfect' || ns.status === 'good' || ns.status === 'ok') {
           ctx.globalAlpha = Math.max(0, 1 - (now - ns.time) * 2.5);
           ctx.fillStyle = ns.status === 'perfect' ? '#22c55e' : ns.status === 'good' ? '#eab308' : '#f97316';
           ctx.shadowColor = ctx.fillStyle;
-          ctx.shadowBlur = 20;
+          ctx.shadowBlur = 25;
           roundRect(ctx, x - noteW / 2, y - noteH, noteW, noteH, 5);
           ctx.fill();
         } else if (ns.status === 'missed') {

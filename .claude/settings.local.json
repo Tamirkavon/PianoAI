@@ -5,7 +5,20 @@
       "Read(//c/Users/USER/AppData/Roaming/**)",
       "Read(//c/Users/USER/**)",
       "Bash(find \"C:/Users/USER/.claude/plugins/marketplaces\" -name \"*.json\" -exec grep -l \"appdeploy\\\\|AppDeploy\" {} ;)",
-      "Bash(xargs grep -l \"appdeploy\\\\|AppDeploy\\\\|app_deploy\")"
+      "Bash(xargs grep -l \"appdeploy\\\\|AppDeploy\\\\|app_deploy\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx vite build)",
+      "Bash(where node)",
+      "Bash(where npm)",
+      "Bash(where npx)",
+      "Bash(command -v node)",
+      "Bash(command -v npm)",
+      "Bash(echo $PATH)",
+      "Bash(npm --version)",
+      "Bash(where.exe node)",
+      "Bash(where.exe npm)",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(printf \"hello world\")"
     ]
   }
 }

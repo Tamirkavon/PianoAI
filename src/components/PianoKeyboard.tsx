@@ -37,7 +37,6 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
     const x = clientX - rect.left;
     const y = clientY - rect.top;
 
-    // Black keys take priority — check them first (same geometry as noteHelpers.getNoteX)
     for (const { note, offset } of BLACK_KEYS) {
       const centerX = ((offset + 0.65) / 14) * rect.width;
       const halfWidth = (rect.width / 14) * 0.3;
@@ -47,7 +46,6 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
       }
     }
 
-    // White key — simple column division
     const col = Math.floor((x / rect.width) * 14);
     if (col >= 0 && col < 14) {
       return WHITE_NOTES[col];
@@ -91,8 +89,14 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
 
   return (
     <div
-      className="relative bg-slate-900 border-t border-slate-700 shrink-0"
-      style={{ height: '36vh', minHeight: '160px', maxHeight: '240px' }}
+      className="relative shrink-0"
+      style={{
+        height: '36vh',
+        minHeight: '160px',
+        maxHeight: '240px',
+        background: '#08080d',
+        borderTop: '2px solid rgba(0,240,255,0.15)',
+      }}
     >
       <div
         ref={containerRef}
@@ -103,7 +107,7 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        {/* White keys — visual only, pointer events handled by container */}
+        {/* White keys */}
         {WHITE_NOTES.map(note => {
           const isActive = activeNotes.has(note);
           return (
@@ -111,13 +115,31 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
               key={note}
               role="button"
               aria-label={`Piano key ${note}`}
-              className={`flex-1 border-x border-slate-300 rounded-b-lg flex items-end justify-center pb-3 transition-colors duration-75 bg-gradient-to-b ${
-                isActive ? 'from-indigo-200 to-indigo-400' : 'from-white to-slate-100'
-              }`}
-              style={isActive ? { boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.25)' } : undefined}
+              className="flex-1 flex items-end justify-center pb-3 transition-colors duration-75"
+              style={{
+                background: isActive
+                  ? 'linear-gradient(to bottom, rgba(0,240,255,0.25), rgba(0,240,255,0.1))'
+                  : 'linear-gradient(to bottom, #1a1a2e, #12121f)',
+                borderRight: '1px solid rgba(0,240,255,0.08)',
+                borderLeft: '1px solid rgba(0,240,255,0.04)',
+                borderBottomLeftRadius: '4px',
+                borderBottomRightRadius: '4px',
+                boxShadow: isActive
+                  ? 'inset 0 0 15px rgba(0,240,255,0.3), 0 0 10px rgba(0,240,255,0.2)'
+                  : 'inset 0 -2px 4px rgba(0,0,0,0.3)',
+              }}
             >
               {showLabels && (
-                <span className="text-xs font-bold text-slate-400 uppercase select-none font-body pointer-events-none">
+                <span style={{
+                  fontFamily: '"Space Mono", monospace',
+                  fontSize: '0.6rem',
+                  fontWeight: 700,
+                  color: isActive ? 'rgba(0,240,255,0.8)' : 'rgba(0,240,255,0.2)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  userSelect: 'none',
+                  pointerEvents: 'none',
+                }}>
                   {NOTE_TO_KEY[note]}
                 </span>
               )}
@@ -125,7 +147,7 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
           );
         })}
 
-        {/* Black keys — visual only, pointer events handled by container */}
+        {/* Black keys */}
         {BLACK_KEYS.map(({ note, offset }) => {
           const leftPercent = ((offset + 0.65) / 14) * 100;
           const isActive = activeNotes.has(note);
@@ -134,19 +156,35 @@ export function PianoKeyboard({ onNoteOn, onNoteOff, showLabels }: Props) {
               key={note}
               role="button"
               aria-label={`Piano key ${note}`}
-              className={`absolute top-0 rounded-b-lg pointer-events-none flex items-end justify-center pb-2 shadow-lg transition-colors duration-75 bg-gradient-to-b ${
-                isActive ? 'from-indigo-700 to-indigo-950' : 'from-slate-800 to-slate-950'
-              }`}
+              className="absolute top-0 flex items-end justify-center pb-2 pointer-events-none transition-colors duration-75"
               style={{
                 left: `${leftPercent}%`,
                 width: `${(100 / 14) * 0.6}%`,
                 height: '62%',
                 transform: 'translateX(-50%)',
                 zIndex: 10,
+                background: isActive
+                  ? 'linear-gradient(to bottom, rgba(255,45,149,0.3), rgba(255,45,149,0.1))'
+                  : 'linear-gradient(to bottom, #0a0a12, #060609)',
+                borderBottomLeftRadius: '4px',
+                borderBottomRightRadius: '4px',
+                boxShadow: isActive
+                  ? '0 0 12px rgba(255,45,149,0.4), inset 0 0 8px rgba(255,45,149,0.2)'
+                  : '2px 4px 8px rgba(0,0,0,0.7)',
+                borderLeft: '1px solid rgba(255,45,149,0.06)',
+                borderRight: '1px solid rgba(255,45,149,0.06)',
               }}
             >
               {showLabels && (
-                <span className="text-[10px] font-bold text-slate-400 uppercase select-none font-body">
+                <span style={{
+                  fontFamily: '"Space Mono", monospace',
+                  fontSize: '0.52rem',
+                  fontWeight: 400,
+                  color: isActive ? 'rgba(255,45,149,0.8)' : 'rgba(255,45,149,0.2)',
+                  textTransform: 'uppercase',
+                  userSelect: 'none',
+                  letterSpacing: '0.03em',
+                }}>
                   {NOTE_TO_KEY[note]}
                 </span>
               )}

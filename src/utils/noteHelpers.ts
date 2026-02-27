@@ -21,11 +21,11 @@ export function isBlackNote(note: string): boolean {
 export function getNoteColor(note: string): string {
   const base = note.replace(/\d/, '');
   const colors: Record<string, string> = {
-    'C': '#ff6b6b', 'C#': '#ff8e8e', 'D': '#ffa94d', 'D#': '#ffc078',
-    'E': '#ffd43b', 'F': '#69db7c', 'F#': '#8ce99a', 'G': '#38d9a9',
-    'G#': '#63e6be', 'A': '#4dabf7', 'A#': '#748ffc', 'B': '#9775fa',
+    'C': '#ff0055', 'C#': '#ff3377', 'D': '#ff6600', 'D#': '#ff8833',
+    'E': '#ffcc00', 'F': '#00ff88', 'F#': '#33ffaa', 'G': '#00ffcc',
+    'G#': '#33ffdd', 'A': '#00ccff', 'A#': '#5588ff', 'B': '#aa55ff',
   };
-  return colors[base] || '#818cf8';
+  return colors[base] || '#8b5cf6';
 }
 
 export function getStarRating(accuracy: number): number {
